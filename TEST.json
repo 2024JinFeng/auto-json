@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain": [
+        "speed.cloudflare.com"
+      ],
+      "domain_suffix": [
+        "1-b.net",
+        "888005.xyz",
+        "addr.tools",
+        "asn247.net",
+        "astrill.org",
+        "b0.upaiyun.com",
+        "browserleaks.com",
+        "browserleaks.net",
+        "browserleaks.org",
+        "browserscan.net",
+        "dnscheck.tools",
+        "dnsleaktest.com",
+        "dnsleaktest.org",
+        "fast.com",
+        "ifconfig.me",
+        "incolumitas.com",
+        "ip-api.com",
+        "ip-score.com",
+        "ip.sb",
+        "ip111.cn",
+        "ip125.com",
+        "ip2proxy.com",
+        "ipaddress.me",
+        "ipcheck.im",
+        "ipify.org",
+        "ipinfo.io",
+        "ipip.net",
+        "ipleak.net",
+        "ipw.cn",
+        "jsonp-ip.com",
+        "l.google.com",
+        "null-addr.biz",
+        "null-addr.com",
+        "null-addr.info",
+        "null-addr.net",
+        "null-addr.org",
+        "ping0.cc",
+        "skk.moe",
+        "speedcheck.org",
+        "speedtest.cn",
+        "speedtest.net",
+        "sspanel.net",
+        "surfshark.com",
+        "surfsharkdns.com",
+        "test-ipv6.com",
+        "ustc.edu.cn",
+        "vpnapi.io",
+        "vultr.com",
+        "whatismyip.com",
+        "whatismyip.com.tw",
+        "whoer.com",
+        "whoer.net",
+        "whois.pconline.com.cn",
+        "whoisip.me",
+        "workers.dev",
+        "yalala.com"
+      ],
+      "ip_cidr": [
+        "142.251.215.0/24",
+        "74.125.250.129/24"
+      ]
+    }
+  ]
+}
