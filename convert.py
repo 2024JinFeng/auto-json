@@ -54,6 +54,11 @@ TASKS = {
         "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/China/China.list",
         "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PrivateTracker/PrivateTracker.list"
     ],
+    # 补齐 [proxy] 分类
+    "Proxy.json": [
+        "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/refs/heads/master/rule/Clash/Proxy/Proxy.list",
+        "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/refs/heads/master/rule/Clash/Global/Global.list"
+    ],
     "AMD.json": ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/AMD/AMD.list"],
     "Nvidia.json": ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Nvidia/Nvidia.list"]
 }
@@ -68,15 +73,16 @@ def process_convert():
                 "domain": [],
                 "domain_suffix": [],
                 "domain_keyword": [],
-                "ip_cidr": []
+                "ip_cidr": [],
+                "ip_asn": []
             }]
         }
         rule = result["rules"][0]
 
         for url in urls:
             try:
-                # 自动处理 GitHub 网页链接为 Raw 链接
-                raw_url = url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
+                # 自动将 github.com 转换为 raw 链接
+                raw_url = url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/").replace("/raw/", "/")
                 resp = requests.get(raw_url, timeout=15)
                 resp.raise_for_status()
                 resp.encoding = 'utf-8'
@@ -94,17 +100,18 @@ def process_convert():
                     elif t == "DOMAIN-SUFFIX": rule["domain_suffix"].append(v)
                     elif t == "DOMAIN-KEYWORD": rule["domain_keyword"].append(v)
                     elif t in ["IP-CIDR", "IP-CIDR6"]: rule["ip_cidr"].append(v)
+                    elif t == "IP-ASN": rule["ip_asn"].append(int(v) if v.isdigit() else v)
             except Exception as e:
                 print(f"警告: 链接 {url} 获取失败: {e}")
 
         # 去重、排序并清理
         for key in list(rule.keys()):
             if rule[key]:
-                rule[key] = sorted(list(set(rule[key])))
+                # 对非数字项进行排序去重
+                rule[key] = sorted(list(set(rule[key])), key=lambda x: str(x))
             else:
                 del rule[key]
 
-        # 写入对应的 JSON
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(result, f, indent=2, ensure_ascii=False)
         print(f"✅ 已生成: {filename}")
